@@ -19,9 +19,9 @@ This project is built with **Laravel 11** and provides a Todo list with full CRU
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/laravel-todo-reminder.git
+git clone https://github.com/hafizurrahmanshadhin/Bemgroup.git
 
-cd laravel-todo-reminder
+cd bemgroup
 ```
 
 ### 2. Install Dependencies
