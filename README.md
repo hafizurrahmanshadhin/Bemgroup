@@ -21,7 +21,7 @@ This project is built with **Laravel 11** and provides a Todo list with full CRU
 ```bash
 git clone https://github.com/hafizurrahmanshadhin/Bemgroup.git
 
-cd bemgroup
+cd Bemgroup
 ```
 
 ### 2. Install Dependencies

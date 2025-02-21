@@ -6,7 +6,6 @@ use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\Backend\TodoRequest;
 use App\Http\Resources\Web\Backend\TodoResource;
-use App\Jobs\SendReminderEmailJob;
 use App\Models\Todo;
 use Carbon\Carbon;
 use Exception;
@@ -108,7 +107,7 @@ class TodoController extends Controller {
      */
     public function store(TodoRequest $request): RedirectResponse {
         try {
-            $data = $request->validated();
+            $request->validated();
 
             $data              = new Todo();
             $data->title       = $request->title;
@@ -116,25 +115,6 @@ class TodoController extends Controller {
             $data->due_date    = Carbon::parse($request->due_date);
             $data->description = $request->description;
             $data->save();
-
-            Log::info('New Todo created', [
-                'todo_id'  => $data->id,
-                'email'    => $data->email,
-                'due_date' => $data->due_date->format('Y-m-d H:i:s'),
-            ]);
-
-            $reminder = $data->due_date->copy()->subMinutes(10);
-            $delay    = now()->diffInSeconds($reminder, false);
-            $delay    = $delay > 0 ? $delay : 0;
-
-            Log::info('Reminder calculation details', [
-                'reminder_time' => $reminder->format('Y-m-d H:i:s'),
-                'delay_seconds' => $delay,
-            ]);
-
-            dispatch(new SendReminderEmailJob($data))->delay($delay);
-
-            Log::info('Dispatching SendReminderEmailJob with delay', ['delay' => $delay]);
 
             return redirect()->route('todos.index')->with('t-success', 'Todo created successfully');
         } catch (Exception $e) {
@@ -180,12 +160,6 @@ class TodoController extends Controller {
             $todo->due_date    = Carbon::parse($request->due_date);
             $todo->description = $request->description;
             $todo->save();
-
-            $reminderTime = $todo->due_date->copy()->subMinutes(10);
-            $delay        = now()->diffInSeconds($reminderTime, false);
-            $delay        = $delay > 0 ? $delay : 0;
-
-            dispatch(new SendReminderEmailJob($todo))->delay($delay);
 
             return redirect()->route('todos.index')->with('t-success', 'Todo updated successfully');
         } catch (Exception $e) {

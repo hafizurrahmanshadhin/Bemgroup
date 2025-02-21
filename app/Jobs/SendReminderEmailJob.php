@@ -24,7 +24,12 @@ class SendReminderEmailJob implements ShouldQueue {
         $this->todo = $todo;
     }
 
-    public function handle() {
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle(): void {
         Log::info("Starting SendReminderEmailJob for Todo ID: {$this->todo->id} (Email: {$this->todo->email})");
 
         $response = Http::get('https://jsonplaceholder.typicode.com/posts');

@@ -33,6 +33,11 @@ class Todo extends Model {
         'deleted_at'          => 'datetime',
     ];
 
+    /**
+     * Get the emailLogs for the Todo
+     *
+     * @return HasMany
+     */
     public function emailLogs(): HasMany {
         return $this->hasMany(EmailLog::class);
     }

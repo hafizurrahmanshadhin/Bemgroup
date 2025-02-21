@@ -31,6 +31,11 @@ class EmailLog extends Model {
         'deleted_at' => 'datetime',
     ];
 
+    /**
+     * Get the todo that owns the EmailLog
+     *
+     * @return BelongsTo
+     */
     public function todo(): BelongsTo {
         return $this->belongsTo(Todo::class);
     }

@@ -23,8 +23,10 @@ class SendTodoReminders extends Command {
 
     /**
      * Execute the console command.
+     *
+     * @return void
      */
-    public function handle() {
+    public function handle(): void {
         $todos = Todo::where('reminder_email_sent', false)
             ->where('due_date', '<=', now()->addMinutes(10))
             ->where('due_date', '>', now())

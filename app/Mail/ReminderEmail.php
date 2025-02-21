@@ -18,6 +18,9 @@ class ReminderEmail extends Mailable {
         $this->csvFilePath = $csvFilePath;
     }
 
+    /**
+     * Build the message.
+     */
     public function build() {
         return $this->subject('Reminder for Todo: ' . $this->todo->title)
             ->view('emails.reminder')
