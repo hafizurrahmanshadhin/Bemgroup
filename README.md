@@ -1,5 +1,15 @@
 # Laravel Todo Reminder Project
 
+> ---
+>
+> ## 🔑 Login Credentials
+>
+> **Email:** <admin@admin.com>
+>
+> **Password:** 12345678
+>
+> ---
+
 This project is built with **Laravel 11** and provides a Todo list with full CRUD functionality. A reminder email is sent 10 minutes before the Todo’s due date. The email includes a CSV attachment containing 10 titles pulled from an external API. All email send attempts are logged in the database.
 
 > **Note:** This project also uses Laravel Breeze for authentication.
